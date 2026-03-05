@@ -8,7 +8,7 @@ import { labels } from '../../utils/json-data';
   standalone: true,
   imports: [CommonChartComponent, ProgressSpinnerModule],
   template: `
-    <h3>{{label?.Insight?.header}}</h3>
+    <h3>{{label.Insight.header}}</h3>
     <app-common-chart 
       [xData]="categories()" 
       [yData]="values()" 

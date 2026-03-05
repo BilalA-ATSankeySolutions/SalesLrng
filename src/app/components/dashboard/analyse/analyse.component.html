@@ -1,7 +1,7 @@
 <div class="container">
     <div class="header">
-        <h3>{{label?.Analyse?.table}}</h3>
-        <button pButton size="small" label={{label?.Analyse?.add}} (click)="openTableForm()" class="small-btn"></button>
+        <h3>{{label.Analyse.table}}</h3>
+        <button pButton size="small" label={{label.Analyse.add}} (click)="openTableForm()" class="small-btn"></button>
     </div>
 
     <div class="table-list">
@@ -40,8 +40,8 @@
 
         <p-footer>
             <div class="buttons-div">
-                <button pButton label={{label?.Analyse?.submit}} (click)="submitTable()" class="p-button-success"></button>
-                <button pButton label={{label?.Analyse?.cancel}} (click)="closeDialog()" class="p-button-secondary p-ml-2"></button>
+                <button pButton label={{label.Analyse.submit}} (click)="submitTable()" class="p-button-success"></button>
+                <button pButton label={{label.Analyse.cancel}} (click)="closeDialog()" class="p-button-secondary p-ml-2"></button>
             </div>
         </p-footer>
     </form>

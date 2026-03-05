@@ -1,12 +1,12 @@
 <p-toast position="top-right" />
 
 <div class="overview-header">
-  <h2 class="section-title">{{label?.Overview?.header}}</h2>
+  <h2 class="section-title">{{label.Overview.header}}</h2>
 
   <div class="export-actions">
-    <p-button label={{label?.Overview?.excelExport}} icon="pi pi-file-excel" [loading]="exportLoading()"
+    <p-button label={{label.Overview.excelExport}} icon="pi pi-file-excel" [loading]="exportLoading()"
       [disabled]="exportLoading()" severity="success" (onClick)="onExportExcel()" />
-    <p-button label={{label?.Overview?.pdfExport}} icon="pi pi-file-pdf" [loading]="pdfLoading()"
+    <p-button label={{label.Overview.pdfExport}} icon="pi pi-file-pdf" [loading]="pdfLoading()"
       [disabled]="pdfLoading() || exportLoading()" severity="danger" (onClick)="onExportPdf()" />
   </div>
 </div>
