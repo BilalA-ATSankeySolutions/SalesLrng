@@ -27,7 +27,7 @@ export type ChartOptions = {
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.scss'],
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent {
     chartOptions: ChartOptions = {
         series: [
             { name: 'Maximum of focus', data: [38, 55, 42, 60, 35, 65, 48, 72, 50, 58, 44, 68, 52, 42, 60, 75, 55, 80, 62, 50, 66, 54, 45, 70] },
@@ -60,7 +60,7 @@ export class UserProfileComponent implements OnInit {
             ],
             axisBorder: { show: false },
             axisTicks: { show: false },
-            labels: { show: false }, 
+            labels: { show: false },
         },
         yaxis: { show: false },
         grid: {
@@ -151,13 +151,34 @@ export class UserProfileComponent implements OnInit {
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     activeMonthIndex = 8;
 
-    get visibleMonths(): string[] {
-        const start = Math.max(0, this.activeMonthIndex - 1);
-        return this.months.slice(start, start + 4);
+    private get rangeWindow(): { above: number; below: number } {
+        switch (this.selectedRange) {
+            case 'Last 3 months': return { above: 1, below: 1 };
+            case 'Last 6 months': return { above: 2, below: 3 };
+            default: return { above: 1, below: 2 }; // show 4 months
+        }
     }
 
     get visibleMonthsStartIndex(): number {
-        return Math.max(0, this.activeMonthIndex - 1);
+        const { above } = this.rangeWindow;
+        return Math.max(0, this.activeMonthIndex - above);
+    }
+
+    get visibleMonths(): string[] {
+        const { above, below } = this.rangeWindow;
+        const start = Math.max(0, this.activeMonthIndex - above);
+        const end = Math.min(this.months.length, this.activeMonthIndex + below + 1);
+        return this.months.slice(start, end);
+    }
+
+    get selectedMonthIndices(): Set<number> {
+        const { above, below } = this.rangeWindow;
+        const indices = new Set<number>();
+        for (let offset = -above; offset <= below; offset++) {
+            const idx = this.activeMonthIndex + offset;
+            if (idx >= 0 && idx < this.months.length) indices.add(idx);
+        }
+        return indices;
     }
 
     scrollMonthUp(): void {
@@ -167,6 +188,4 @@ export class UserProfileComponent implements OnInit {
     scrollMonthDown(): void {
         if (this.activeMonthIndex < this.months.length - 1) this.activeMonthIndex++;
     }
-
-    ngOnInit(): void { }
 }

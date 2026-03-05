@@ -1,43 +1,78 @@
 <p-toast position="top-right" />
 
-<div class="overview-header">
-  <h2 class="section-title">{{label.Overview.header}}</h2>
+<div class="overview-root">
 
-  <div class="export-actions">
-    <p-button label={{label.Overview.excelExport}} icon="pi pi-file-excel" [loading]="exportLoading()"
-      [disabled]="exportLoading()" severity="success" (onClick)="onExportExcel()" />
-    <p-button label={{label.Overview.pdfExport}} icon="pi pi-file-pdf" [loading]="pdfLoading()"
-      [disabled]="pdfLoading() || exportLoading()" severity="danger" (onClick)="onExportPdf()" />
-  </div>
-</div>
-
-<div *ngIf="loading()" class="loader">
-  <p-progressSpinner />
-</div>
-
-<div *ngIf="!loading() && fetchError()" class="empty-state error-state">
-  <i class="pi pi-exclamation-circle"></i>
-  <p>{{ fetchError() }}</p>
-</div>
-
-<div *ngIf="!loading() && !fetchError() && users().length === 0" class="empty-state">
-  <i class="pi pi-users"></i>
-  <p>No users found.</p>
-</div>
-
-<div class="card-grid" *ngIf="!loading() && !fetchError() && users().length > 0">
-  <div class="user-card" *ngFor="let user of users()">
-
-    <div class="card-header">
-      <div class="card-avatar">{{ user.name | slice:0:1 }}</div>
-      <h3>{{ user.name }}</h3>
+  <div class="overview-topbar">
+    <div class="topbar-left">
+      <span class="topbar-eyebrow">Dashboard</span>
+      <h1 class="topbar-title">{{ label.Overview.header }}</h1>
     </div>
-
-    <div class="card-body">
-      <p><i class="pi pi-envelope"></i> {{ user?.email }}</p>
-      <p><i class="pi pi-phone"></i> {{ user?.phone }}</p>
-      <p><i class="pi pi-building"></i> {{ user?.company?.name }}</p>
+    <div class="topbar-actions">
+      <button class="export-btn excel" (click)="onExportExcel()" [disabled]="exportLoading()">
+        <span class="btn-icon">
+          <i class="pi pi-file-excel"></i>
+        </span>
+        <span class="btn-text">{{ label.Overview.excelExport }}</span>
+        <span class="btn-loader" *ngIf="exportLoading()"><i class="pi pi-spin pi-spinner"></i></span>
+      </button>
+      <button class="export-btn pdf" (click)="onExportPdf()" [disabled]="pdfLoading() || exportLoading()">
+        <span class="btn-icon">
+          <i class="pi pi-file-pdf"></i>
+        </span>
+        <span class="btn-text">{{ label.Overview.pdfExport }}</span>
+        <span class="btn-loader" *ngIf="pdfLoading()"><i class="pi pi-spin pi-spinner"></i></span>
+      </button>
     </div>
-
   </div>
+
+  <div *ngIf="loading()" class="state-block">
+    <div class="pulse-ring"></div>
+    <p class="state-label">Loading users...</p>
+  </div>
+
+  <div *ngIf="!loading() && fetchError()" class="state-block error">
+    <div class="state-icon"><i class="pi pi-exclamation-triangle"></i></div>
+    <p class="state-label">{{ fetchError() }}</p>
+  </div>
+
+  <div *ngIf="!loading() && !fetchError() && users().length === 0" class="state-block">
+    <div class="state-icon"><i class="pi pi-users"></i></div>
+    <p class="state-label">No users found.</p>
+  </div>
+
+  <div class="user-grid" *ngIf="!loading() && !fetchError() && users().length > 0">
+    <div class="user-card" *ngFor="let user of users(); let i = index">
+      <div class="card-index">{{ (i + 1).toString().padStart(2, '0') }}</div>
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="avatar">{{ user.name?.toString().substring(0, 2).toUpperCase() }}</div>
+          <div class="user-meta">
+            <span class="user-name">{{ user.name }}</span>
+            <span class="user-handle">@{{ user.username }}</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-details">
+          <div class="detail-row">
+            <i class="pi pi-envelope"></i>
+            <span>{{ user?.email }}</span>
+          </div>
+          <div class="detail-row">
+            <i class="pi pi-phone"></i>
+            <span>{{ user?.phone }}</span>
+          </div>
+          <div class="detail-row">
+            <i class="pi pi-building"></i>
+            <span>{{ user?.company?.name }}</span>
+          </div>
+          <div class="detail-row">
+            <i class="pi pi-map-marker"></i>
+            <span>{{ user?.address?.city }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-accent"></div>
+    </div>
+  </div>
+
 </div>

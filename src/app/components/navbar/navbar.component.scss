@@ -1,16 +1,18 @@
+@use '../../styles/constants' as *;
+
 .navbar {
-  height: 60px;
-  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  height: $navbar-height;
+  background: linear-gradient(90deg, $navbar-gradient-start, $navbar-gradient-end);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
-  color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 0 $spacing-xl;
+  color: $text-light;
+  box-shadow: $shadow-navbar;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: $font-size-xl;
   font-weight: 600;
   letter-spacing: 1px;
 }

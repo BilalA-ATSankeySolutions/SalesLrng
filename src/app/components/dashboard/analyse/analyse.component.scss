@@ -1,3 +1,5 @@
+@use '../../../styles/constants' as *;
+
 .container {
   .header {
     display: flex;
@@ -5,26 +7,24 @@
 
     h3 {
       margin: 0;
+      font-size: $font-size-lg;
+      color: $text-heading;
     }
-
-    // .small-btn {
-    //   // Any button-specific overrides
-    // }
   }
 
   .table-list {
-    margin-top: 10px;
+    margin-top: $spacing-sm;
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: $spacing-md;
     justify-content: flex-start;
 
     .table-card {
-      background-color: #ffffff;
-      border-radius: 8px;
-      padding: 16px;
+      background-color: $card-background;
+      border-radius: $border-radius-md;
+      padding: $spacing-md;
       width: 100%;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: $shadow-card;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
 
@@ -34,18 +34,19 @@
 
       &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        box-shadow: $shadow-card-hover;
       }
 
       .card-title {
         font-weight: 600;
-        font-size: 16px;
-        margin-bottom: 8px;
+        font-size: $font-size-md;
+        margin-bottom: $spacing-sm;
+        color: $text-heading;
       }
 
       .card-date {
-        font-size: 14px;
-        color: #666;
+        font-size: $font-size-sm;
+        color: $text-muted;
       }
     }
   }
@@ -53,14 +54,14 @@
   .add-btn-wrapper {
     display: flex;
     justify-content: flex-end;
-    padding: 10px;
+    padding: $spacing-sm;
   }
 
   .dynamic-fields {
     .field-row {
       display: flex;
-      gap: 10px;
-      padding: 10px;
+      gap: $spacing-sm;
+      padding: $spacing-sm;
 
       input {
         flex: 1;
@@ -73,18 +74,14 @@
           width: 93%;
         }
       }
-
-    //   .add-btn {
-    //     // Add button styling
-    //   }
     }
   }
 
   .buttons-div {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    padding: 20px 0;
+    gap: $spacing-lg;
+    padding: $spacing-lg 0;
 
     button {
       min-width: 140px;
@@ -92,6 +89,6 @@
   }
 
   .p-10 {
-    padding: 10px;
+    padding: $spacing-sm;
   }
 }

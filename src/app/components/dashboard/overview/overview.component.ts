@@ -94,13 +94,13 @@ export class OverviewComponent implements OnInit {
           });
 
           sheet.getColumn(4).eachCell(cell => {
-            cell.protection = { locked: true };
+            cell.protection = { locked: false };
           });
 
           sheet.columns.forEach((col, index) => {
             if (index !== 3 && col?.eachCell) {
               col.eachCell(cell => {
-                cell.protection = { locked: false };
+                cell.protection = { locked: true };
               });
             }
           });

@@ -200,6 +200,7 @@
 
                     <ng-container *ngFor="let m of visibleMonths; let i = index">
                         <span class="y-axis__month" [class.y-axis__month--active]="m === months[activeMonthIndex]"
+                            [class.y-axis__month--selected]="selectedMonthIndices.has(visibleMonthsStartIndex + i)"
                             (click)="activeMonthIndex = visibleMonthsStartIndex + i">{{ m }}</span>
                     </ng-container>
 

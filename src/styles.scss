@@ -1,13 +1,17 @@
 /* You can add global styles here */
 // @import "primeng/resources/themes/lara-light-indigo/theme.css";
 // @import "primeng/resources/primeng.min.css";
+@use './app/styles/constants' as *;
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
 
 body {
     font-family: Arial, sans-serif;
+
     margin: 0;
     padding: 0;
+
+  // Import SCSS constants
 }
 
 /* ===== Toast Styling ===== */
