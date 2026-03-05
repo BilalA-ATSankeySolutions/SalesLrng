@@ -1,0 +1,51 @@
+<ng-container *ngIf="loading">
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th *ngFor="let col of skeletonCols" style="padding: 12px 8px;">
+                    <p-skeleton height="1rem" borderRadius="4px"></p-skeleton>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of skeletonRows; let ri = index">
+                <td *ngFor="let col of skeletonCols; let ci = index" style="padding: 12px 8px;">
+                    <p-skeleton
+                        height="1rem"
+                        borderRadius="4px"
+                        [style]="{ width: skeletonWidths[ri * skeletonCols.length + ci] }">
+                    </p-skeleton>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+
+<ng-container *ngIf="!loading">
+    <p-table [value]="displayRows">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns">{{ col }}</th>
+                <th>View</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td *ngFor="let col of columns">
+                    <ng-container *ngIf="row.cells[col].isObject; else plainValue">
+                        <span class="object-cell" [title]="row.cells[col].tooltip">
+                            {{ row.cells[col].preview }}
+                        </span>
+                    </ng-container>
+                    <ng-template #plainValue>
+                        {{ row.cells[col].preview }}
+                    </ng-template>
+                </td>
+                <td>
+                    <button pButton type="button" label="View" (click)="viewLocation(row._raw)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</ng-container>

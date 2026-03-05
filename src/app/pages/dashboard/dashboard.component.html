@@ -1,0 +1,14 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container" style="padding: 20px;">
+  <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedIndexChange)="onTabChange($event)">
+    <mat-tab label="Overview"></mat-tab>
+    <mat-tab label="Profile"></mat-tab>
+    <mat-tab label="Insights"></mat-tab>
+    <mat-tab label="Analyse"></mat-tab>
+  </mat-tab-group>
+
+  <div style="margin-top: 20px;">
+    <router-outlet></router-outlet>
+  </div>
+</div>

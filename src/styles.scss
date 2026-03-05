@@ -1,0 +1,114 @@
+/* You can add global styles here */
+// @import "primeng/resources/themes/lara-light-indigo/theme.css";
+// @import "primeng/resources/primeng.min.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== Toast Styling ===== */
+
+.p-toast {
+    width: 380px !important; // default ~300px
+}
+
+.p-toast-message {
+    border-radius: 10px;
+    // padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    gap: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Success */
+.p-toast-message-success {
+    background: linear-gradient(90deg, #11998e, #38ef7d) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+/* Error */
+.p-toast-message-error {
+    background: linear-gradient(90deg, #ff416c, #ff4b2b) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+/* Info */
+.p-toast-message-info {
+    background: linear-gradient(90deg, #2193b0, #6dd5ed) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+/* Hide default border accent */
+.p-toast-message-icon {
+    color: white !important;
+}
+
+.p-toast .p-toast-message-content {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ConfirmDialog Global Styling */
+.p-confirm-dialog {
+  width: 450px !important;         
+  max-width: 90% !important;   
+  border-radius: 12px !important;
+  padding: 1.2rem !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  font-family: 'Arial', sans-serif;
+}
+
+.p-confirm-dialog .p-dialog-header {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: #222 !important;
+}
+
+.p-confirm-dialog .p-dialog-content {
+  font-size: 1rem !important;
+  color: #555 !important;
+  margin-top: 0.5rem !important;
+  line-height: 1.5rem !important;
+}
+
+.p-confirm-dialog .p-button {
+  min-width: 100px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+}
+
+/* Accept Button Gradient */
+.p-confirm-dialog .p-button-success {
+  background: linear-gradient(90deg, #11998e, #38ef7d) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* Reject Button Gradient */
+.p-confirm-dialog .p-button-danger {
+  background: linear-gradient(90deg, #ff416c, #ff4b2b) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.p-confirm-dialog .p-button-secondary {
+  background: #ccc !important;
+  color: #333 !important;
+  border: none !important;
+}
+
+.p-confirm-dialog .p-confirm-dialog-message {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;            
+}

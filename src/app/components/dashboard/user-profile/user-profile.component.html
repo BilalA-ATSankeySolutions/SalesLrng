@@ -1,0 +1,322 @@
+<div class="shell">
+
+    <div class="left-col">
+
+        <!-- ── Top Bar ── -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <div class="logo-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                        <path d="M2 17l10 5 10-5" />
+                        <path d="M2 12l10 5 10-5" />
+                    </svg>
+                </div>
+                <div class="welcome-text">
+                    <h1>Welcome, {{ profile.name.split(' ')[0] }}</h1>
+                    <p>Your personal dashboard overview</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="search-bar">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" placeholder="Search" />
+                </div>
+                <button class="avatar-btn" aria-label="Profile">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- ── Cards Row ── -->
+        <div class="cards-row">
+
+            <!-- Profile Card -->
+            <div class="profile-card card">
+                <div class="profile-card__header">
+                    <span>Profile</span>
+                    <button class="icon-btn" aria-label="Refresh">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round">
+                            <path d="M23 4v6h-6" />
+                            <path d="M1 20v-6h6" />
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="profile-card__avatar">
+                    <div class="avatar-ring">
+                        <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <radialGradient id="avatarGrad" cx="50%" cy="40%" r="60%">
+                                    <stop offset="0%" stop-color="#f9d0da" />
+                                    <stop offset="100%" stop-color="#e898b0" />
+                                </radialGradient>
+                            </defs>
+                            <circle cx="40" cy="40" r="40" fill="url(#avatarGrad)" />
+                            <circle cx="40" cy="30" r="13" fill="#fff" opacity="0.85" />
+                            <ellipse cx="40" cy="64" rx="22" ry="15" fill="#fff" opacity="0.75" />
+                        </svg>
+                        <div class="play-badge">
+                            <svg viewBox="0 0 24 24" fill="white" width="10" height="10">
+                                <polygon points="5,3 19,12 5,21" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card__name">
+                    <h2>{{ profile.name }}</h2>
+                    <p>{{ profile.designation }}</p>
+                </div>
+
+                <div class="profile-card__stats">
+                    <div class="stat-item">
+                        <span class="stat-icon stat-icon--people">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </span>
+                        {{ profile.connections }}
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon stat-icon--check">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </span>
+                        {{ profile.checks }}
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon stat-icon--heart">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
+                        </span>
+                        {{ profile.trophies }}
+                    </div>
+                </div>
+            </div>
+            <!-- /Profile Card -->
+
+            <!-- Tasks + Trackers -->
+            <div class="tasks-col">
+
+                <!-- Task Cards -->
+                <div class="task-cards-row">
+                    <div class="task-card task-card--prioritized">
+                        <div class="task-card__title">Prioritized tasks</div>
+                        <div class="task-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                        </div>
+                        <div class="task-card__body">
+                            <span class="task-card__percent">{{ tasks.prioritized }}%</span>
+                            <span class="task-card__label">Avg. Completed</span>
+                        </div>
+                    </div>
+
+                    <div class="task-card task-card--additional">
+                        <div class="task-card__title">Additional tasks</div>
+                        <div class="task-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                        </div>
+                        <div class="task-card__body">
+                            <span class="task-card__percent">{{ tasks.additional }}%</span>
+                            <span class="task-card__label">Avg. Completed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trackers Card -->
+                <div class="trackers-card card">
+                    <div class="trackers-card__info">
+                        <h3>Trackers connected</h3>
+                        <p>{{ trackersConnected.length }} active connections</p>
+                    </div>
+                    <div class="trackers-card__icons">
+                        <div class="tracker-icon" *ngFor="let tracker of trackersConnected" [title]="tracker.name">
+                            <img [src]="tracker.icon" [alt]="tracker.name" />
+                        </div>
+                        <button class="more-btn" aria-label="More">···</button>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Tasks + Trackers -->
+
+        </div>
+        <!-- /Cards Row -->
+
+        <!-- ── Focusing / Chart Card ── -->
+        <div class="focus-card card">
+            <div class="focus-card__header">
+                <div class="focus-card__title">
+                    <h2>Focusing</h2>
+                    <p>Productivity analytics</p>
+                </div>
+                <div class="range-wrapper">
+                    <select [value]="selectedRange" (change)="selectedRange = $any($event.target).value"
+                        aria-label="Date range">
+                        <option *ngFor="let opt of rangeOptions">{{ opt }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="focus-card__chart-wrap">
+
+                <!-- Left month navigator -->
+                <div class="focus-card__y-axis">
+                    <button class="y-axis__chevron" (click)="scrollMonthUp()" [disabled]="activeMonthIndex === 0">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15" />
+                        </svg>
+                    </button>
+
+                    <ng-container *ngFor="let m of visibleMonths; let i = index">
+                        <span class="y-axis__month" [class.y-axis__month--active]="m === months[activeMonthIndex]"
+                            (click)="activeMonthIndex = visibleMonthsStartIndex + i">{{ m }}</span>
+                    </ng-container>
+
+                    <button class="y-axis__chevron" (click)="scrollMonthDown()"
+                        [disabled]="activeMonthIndex === months.length - 1">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- ApexChart -->
+                <div class="focus-card__chart">
+                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+                        [fill]="chartOptions.fill" [stroke]="chartOptions.stroke" [grid]="chartOptions.grid"
+                        [tooltip]="chartOptions.tooltip" [dataLabels]="chartOptions.dataLabels"
+                        [yaxis]="chartOptions.yaxis" [legend]="chartOptions.legend"
+                        [colors]="chartOptions.colors"></apx-chart>
+                </div>
+
+            </div>
+            <div class="focus-card__footer">
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="legend-dot legend-dot--red"></span>
+                        Maximum of focus
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot legend-dot--blue"></span>
+                        Min or lack of focus
+                    </div>
+                </div>
+                <div class="avg-badge">
+                    <span class="avg-badge__value">41%</span>
+                    <span class="avg-badge__label">Avg. Conc-ion</span>
+                </div>
+            </div>
+        </div>
+        <!-- /Focus Card -->
+
+    </div>
+
+
+    <aside class="right-col">
+
+        <!-- My Meetings -->
+        <div class="section-header">
+            <h2>My meetings</h2>
+            <button class="icon-btn" aria-label="Calendar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+            </button>
+        </div>
+
+        <ul class="meeting-list">
+            <li class="meeting-item" *ngFor="let m of meetings">
+                <div class="meeting-item__time">
+                    <span class="day">{{ m.day }}</span>
+                    <span class="time">{{ m.time }}</span>
+                </div>
+                <div class="meeting-item__detail">
+                    <span class="name">{{ m.name }}</span>
+                    <div class="meeting-item__app">
+                        <img [src]="m.icon" [alt]="m.app" />
+                        <span>{{ m.app }}</span>
+                    </div>
+                </div>
+                <button class="meeting-item__arrow icon-btn" aria-label="Open">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round">
+                        <line x1="7" y1="17" x2="17" y2="7" />
+                        <polyline points="7 7 17 7 17 17" />
+                    </svg>
+                </button>
+            </li>
+        </ul>
+
+        <button class="see-all-btn">
+            See all meetings
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+        </button>
+
+        <hr class="divider" />
+
+        <!-- Developed Areas -->
+        <div class="section-header" style="margin-bottom: 4px;">
+            <h2>Developed areas</h2>
+        </div>
+        <p class="section-subtitle">Most common areas of interests</p>
+
+        <ul class="area-list">
+            <li class="area-item" *ngFor="let area of developedAreas">
+                <div class="area-item__row">
+                    <span class="area-item__name">{{ area.name }}</span>
+                    <div class="area-item__right">
+                        <span class="area-item__pct">{{ area.percent }}%</span>
+                        <span class="trend-icon" [class.trend-icon--up]="area.trend === 'up'"
+                            [class.trend-icon--down]="area.trend === 'down'">
+                            {{ area.trend === 'up' ? '↑' : '↓' }}
+                        </span>
+                    </div>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" [style.width.%]="area.percent"></div>
+                </div>
+            </li>
+        </ul>
+
+    </aside>
+
+</div>

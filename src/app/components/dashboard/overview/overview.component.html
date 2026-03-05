@@ -1,0 +1,43 @@
+<p-toast position="top-right" />
+
+<div class="overview-header">
+  <h2 class="section-title">{{label?.Overview?.header}}</h2>
+
+  <div class="export-actions">
+    <p-button label={{label?.Overview?.excelExport}} icon="pi pi-file-excel" [loading]="exportLoading()"
+      [disabled]="exportLoading()" severity="success" (onClick)="onExportExcel()" />
+    <p-button label={{label?.Overview?.pdfExport}} icon="pi pi-file-pdf" [loading]="pdfLoading()"
+      [disabled]="pdfLoading() || exportLoading()" severity="danger" (onClick)="onExportPdf()" />
+  </div>
+</div>
+
+<div *ngIf="loading()" class="loader">
+  <p-progressSpinner />
+</div>
+
+<div *ngIf="!loading() && fetchError()" class="empty-state error-state">
+  <i class="pi pi-exclamation-circle"></i>
+  <p>{{ fetchError() }}</p>
+</div>
+
+<div *ngIf="!loading() && !fetchError() && users().length === 0" class="empty-state">
+  <i class="pi pi-users"></i>
+  <p>No users found.</p>
+</div>
+
+<div class="card-grid" *ngIf="!loading() && !fetchError() && users().length > 0">
+  <div class="user-card" *ngFor="let user of users()">
+
+    <div class="card-header">
+      <div class="card-avatar">{{ user.name | slice:0:1 }}</div>
+      <h3>{{ user.name }}</h3>
+    </div>
+
+    <div class="card-body">
+      <p><i class="pi pi-envelope"></i> {{ user?.email }}</p>
+      <p><i class="pi pi-phone"></i> {{ user?.phone }}</p>
+      <p><i class="pi pi-building"></i> {{ user?.company?.name }}</p>
+    </div>
+
+  </div>
+</div>

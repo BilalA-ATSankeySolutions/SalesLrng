@@ -1,0 +1,35 @@
+.object-cell {
+    display: inline-block;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: default;
+    color: #6366f1;
+    font-style: italic;
+    font-size: 0.875rem;
+    position: relative;
+}
+
+.object-cell:hover::after {
+    content: attr(title);
+    position: fixed;
+    top: var(--tooltip-y, 50%);
+    left: var(--tooltip-x, 50%);
+    transform: translateX(-50%);
+    background: #1e1e2e;
+    color: #e2e8f0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-style: normal;
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+    max-width: 360px;
+    overflow: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    border: 1px solid #374151;
+    z-index: 9999;
+    pointer-events: none;
+    line-height: 1.6;
+}

@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="header">
+        <h3>{{label?.Analyse?.table}}</h3>
+        <button pButton size="small" label={{label?.Analyse?.add}} (click)="openTableForm()" class="small-btn"></button>
+    </div>
+
+    <div class="table-list">
+        <div class="table-card" *ngFor="let item of tables(); trackBy: trackById" (click)="openTable(item.id)">
+            <div>{{ item?.name }}</div>
+            <div>{{ item?.createdOn }}</div>
+        </div>
+    </div>
+</div>
+
+<p-dialog *ngIf="tableForm" header="Add Table" [(visible)]="showDialog" [modal]="true" [style]="{width: '600px'}">
+    <form [formGroup]="tableForm">
+        <div class="p-mt-4 p-10">
+            <input type="text" pInputText placeholder="Table Name" formControlName="tableName" />
+        </div>
+
+        <div formArrayName="fields" class="dynamic-fields">
+            <div *ngFor="let field of fields.controls; let i = index" [formGroupName]="i" class="field-row p-10">
+                <input type="text" pInputText placeholder="Field Name" formControlName="name" />
+                <input type="text" pInputText placeholder="Data Type" formControlName="type" />
+
+                <button *ngIf="i === fields.length - 1" type="button" pButton icon="pi pi-plus" class="add-btn"
+                    (click)="addField()">
+                </button>
+            </div>
+
+            <!-- <div class="add-btn-wrapper">
+                <button type="button" pButton icon="pi pi-plus" (click)="addField()">
+                </button>
+            </div> -->
+        </div>
+
+        <div class="api-input p-mt-4 p-10">
+            <input type="text" pInputText placeholder="API Endpoint" formControlName="apiEndpoint" />
+        </div>
+
+        <p-footer>
+            <div class="buttons-div">
+                <button pButton label={{label?.Analyse?.submit}} (click)="submitTable()" class="p-button-success"></button>
+                <button pButton label={{label?.Analyse?.cancel}} (click)="closeDialog()" class="p-button-secondary p-ml-2"></button>
+            </div>
+        </p-footer>
+    </form>
+</p-dialog>

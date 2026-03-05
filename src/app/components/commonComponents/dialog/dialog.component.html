@@ -1,0 +1,13 @@
+<div class="dialog-header">
+    <h2 mat-dialog-title>{{ data.title }}</h2>
+    <button mat-icon-button (click)="dialogRef.close()">✕</button>
+</div>
+
+<mat-dialog-content>
+  <ng-container *ngComponentOutlet="component; inputs: componentData()">
+</ng-container>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button class="dialog-close-btn" (click)="dialogRef.close()">Close</button>
+</mat-dialog-actions>
