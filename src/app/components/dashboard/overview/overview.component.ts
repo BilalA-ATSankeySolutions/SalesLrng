@@ -30,6 +30,7 @@ export class OverviewComponent implements OnInit {
   exportLoading = signal<boolean>(false);
   pdfLoading = signal<boolean>(false);
   label = labels;
+  menuOpen = signal<boolean>(false);
 
   constructor(
     private usersService: UsersService,

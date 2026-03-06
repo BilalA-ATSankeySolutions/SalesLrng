@@ -1,45 +1,57 @@
 <p-toast position="top-right" />
-
 <div class="overview-root">
-
   <div class="overview-topbar">
     <div class="topbar-left">
       <span class="topbar-eyebrow">Dashboard</span>
       <h1 class="topbar-title">{{ label.Overview.header }}</h1>
     </div>
-    <div class="topbar-actions">
+
+    <div class="topbar-actions desktop-actions">
       <button class="export-btn excel" (click)="onExportExcel()" [disabled]="exportLoading()">
-        <span class="btn-icon">
-          <i class="pi pi-file-excel"></i>
-        </span>
+        <span class="btn-icon"><i class="pi pi-file-excel"></i></span>
         <span class="btn-text">{{ label.Overview.excelExport }}</span>
         <span class="btn-loader" *ngIf="exportLoading()"><i class="pi pi-spin pi-spinner"></i></span>
       </button>
       <button class="export-btn pdf" (click)="onExportPdf()" [disabled]="pdfLoading() || exportLoading()">
-        <span class="btn-icon">
-          <i class="pi pi-file-pdf"></i>
-        </span>
+        <span class="btn-icon"><i class="pi pi-file-pdf"></i></span>
         <span class="btn-text">{{ label.Overview.pdfExport }}</span>
         <span class="btn-loader" *ngIf="pdfLoading()"><i class="pi pi-spin pi-spinner"></i></span>
       </button>
     </div>
+
+    <button class="hamburger-btn" (click)="menuOpen.set(!menuOpen())" [class.open]="menuOpen()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" [class.visible]="menuOpen()">
+    <button class="export-btn excel" (click)="onExportExcel(); menuOpen.set(false)" [disabled]="exportLoading()">
+      <span class="btn-icon"><i class="pi pi-file-excel"></i></span>
+      <span class="btn-text">{{ label.Overview.excelExport }}</span>
+      <span class="btn-loader" *ngIf="exportLoading()"><i class="pi pi-spin pi-spinner"></i></span>
+    </button>
+    <button class="export-btn pdf" (click)="onExportPdf(); menuOpen.set(false)"
+      [disabled]="pdfLoading() || exportLoading()">
+      <span class="btn-icon"><i class="pi pi-file-pdf"></i></span>
+      <span class="btn-text">{{ label.Overview.pdfExport }}</span>
+      <span class="btn-loader" *ngIf="pdfLoading()"><i class="pi pi-spin pi-spinner"></i></span>
+    </button>
   </div>
 
   <div *ngIf="loading()" class="state-block">
     <div class="pulse-ring"></div>
     <p class="state-label">Loading users...</p>
   </div>
-
   <div *ngIf="!loading() && fetchError()" class="state-block error">
     <div class="state-icon"><i class="pi pi-exclamation-triangle"></i></div>
     <p class="state-label">{{ fetchError() }}</p>
   </div>
-
   <div *ngIf="!loading() && !fetchError() && users().length === 0" class="state-block">
     <div class="state-icon"><i class="pi pi-users"></i></div>
     <p class="state-label">No users found.</p>
   </div>
-
   <div class="user-grid" *ngIf="!loading() && !fetchError() && users().length > 0">
     <div class="user-card" *ngFor="let user of users(); let i = index">
       <div class="card-index">{{ (i + 1).toString().padStart(2, '0') }}</div>
@@ -74,5 +86,4 @@
       <div class="card-accent"></div>
     </div>
   </div>
-
 </div>

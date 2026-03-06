@@ -182,3 +182,80 @@ $border-radius-18: 18px;
 $border-radius-20: 20px;
 $border-radius-40: 40px;
 $border-radius-99: 99px;
+
+
+
+$bg-dark-page: #0d0f14;
+$bg-dark-card: #13161e;
+
+// Dark theme text
+$text-dark-primary: #e8eaf0;
+$text-dark-faint: rgba(255, 255, 255, 0.45);
+$text-dark-muted: rgba(255, 255, 255, 0.3);
+$text-dark-subtle: rgba(255, 255, 255, 0.15);
+
+// Dark theme borders
+$border-dark-default: rgba(255, 255, 255, 0.07);
+$border-dark-hover: rgba(255, 255, 255, 0.1);
+$border-dark-strong: rgba(255, 255, 255, 0.2);
+$border-dark-state: rgba(255, 255, 255, 0.08);
+
+// Blue accent variants
+$blue-hover-border: rgba(90, 122, 248, 0.35);
+$blue-glow: rgba(90, 122, 248, 0.15);
+$blue-icon: rgba(90, 122, 248, 0.6);
+
+// Green (Excel export)
+$green-export: #4ade80;
+$green-export-bg: rgba(34, 197, 94, 0.15);
+$green-export-hover-bg: rgba(34, 197, 94, 0.08);
+$green-export-border: rgba(74, 222, 128, 0.3);
+$green-export-glow: rgba(74, 222, 128, 0.1);
+
+// Red (PDF export)
+$red-export: #f87171;
+$red-export-bg: rgba(239, 68, 68, 0.15);
+$red-export-hover-bg: rgba(239, 68, 68, 0.08);
+$red-export-border: rgba(248, 113, 113, 0.3);
+$red-export-glow: rgba(248, 113, 113, 0.1);
+
+// State icon bg
+$state-icon-bg: rgba(255, 255, 255, 0.05);
+
+// Card accent gradient
+$card-accent-gradient: linear-gradient(90deg, #5a7af8, #818cf8, #a78bfa);
+
+// Spinner border
+$spinner-border-faint: rgba(90, 122, 248, 0.3);
+
+// Letter spacing
+$letter-spacing-wide: 0.18em;
+$letter-spacing-normal: 0.05em;
+$letter-spacing-tight: 0.03em;
+
+// Font families
+$font-display: 'Syne', sans-serif;
+$font-mono: 'DM Mono', monospace;
+
+// Sizes
+$size-14: 14px;
+$size-28: 28px;
+$size-44: 44px;
+$size-52: 52px;
+
+// Spacing
+$spacing-9: 9px;
+$spacing-44: 44px;
+$spacing-48: 48px;
+
+// Border radius
+$border-radius-14: 14px;
+
+// Font sizes
+$font-size-11: 11px;
+$font-size-20: 20px;
+
+// Shadows
+$shadow-dark-card-hover: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(90, 122, 248, 0.15);
+$shadow-green-glow: 0 0 20px rgba(74, 222, 128, 0.1);
+$shadow-red-glow: 0 0 20px rgba(248, 113, 113, 0.1);
