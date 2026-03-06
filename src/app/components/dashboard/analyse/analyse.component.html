@@ -6,8 +6,8 @@
 
     <div class="table-list">
         <div class="table-card" *ngFor="let item of tables(); trackBy: trackById" (click)="openTable(item.id)">
-            <div>{{ item?.name }}</div>
-            <div>{{ item?.createdOn }}</div>
+            <div class="table-card-label">{{ item?.name }}</div>
+            <div class="table-card-label">{{ item?.createdOn }}</div>
         </div>
     </div>
 </div>

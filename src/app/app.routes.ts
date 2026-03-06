@@ -23,7 +23,7 @@ export const routes: Routes = [
       },
       {
         path: 'insights',
-        loadComponent: () => import('./components/dashboard/insights.component')
+        loadComponent: () => import('./components/dashboard/insights/insights.component')
           .then(m => m.InsightsComponent)
       },
       {

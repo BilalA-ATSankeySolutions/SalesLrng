@@ -1,0 +1,7 @@
+<h3>{{label.Insight.header}}</h3>
+    <app-common-chart 
+      [xData]="categories()" 
+      [yData]="values()" 
+      [chartTitle]="'Monthly Sales'"
+      [chartType]="'line'">
+    </app-common-chart>

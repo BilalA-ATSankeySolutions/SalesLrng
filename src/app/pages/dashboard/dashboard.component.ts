@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
     standalone: true,
     imports: [RouterOutlet, MatTabsModule, NavbarComponent],
     templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
 

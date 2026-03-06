@@ -1,21 +1,14 @@
 import { Component, signal, OnInit } from '@angular/core';
-import { CommonChartComponent } from '../commonComponents/chart.component';
+import { CommonChartComponent } from '../../commonComponents/chart.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { labels } from '../../utils/json-data';
+import { labels } from '../../../utils/json-data';
 
 @Component({
   selector: 'app-insights',
   standalone: true,
   imports: [CommonChartComponent, ProgressSpinnerModule],
-  template: `
-    <h3>{{label.Insight.header}}</h3>
-    <app-common-chart 
-      [xData]="categories()" 
-      [yData]="values()" 
-      [chartTitle]="'Monthly Sales'"
-      [chartType]="'line'">
-    </app-common-chart>
-  `,
+  templateUrl: './insights.component.html',
+  styleUrls: ['./insights.component.scss']
 })
 export class InsightsComponent implements OnInit {
   categories = signal<string[]>([]);

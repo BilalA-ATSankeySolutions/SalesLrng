@@ -1,0 +1,16 @@
+@use '../../../styles/constants' as *;
+
+:host {
+  display: block;
+  padding: $spacing-xl;
+  background: var(--ins-bg);
+  min-height: 100vh;
+
+  h3 {
+    margin: 0 0 $spacing-lg;
+    font-size: $font-size-title;
+    font-weight: 700;
+    color: var(--ins-title-color);
+    letter-spacing: -0.3px;
+  }
+}

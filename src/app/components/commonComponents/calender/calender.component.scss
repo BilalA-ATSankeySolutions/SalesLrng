@@ -2,18 +2,9 @@
 
 // ── Design Tokens ──────────────────────────────────────────────────────────────
 :host {
-  --bg:        #0f1117;
-  --surface:   #181c27;
-  --surface2:  #1f2435;
-  --border:    rgba(255,255,255,0.07);
-  --text:      #e8eaf0;
-  --muted:     #7a8099;
-  --accent:    #6c8fff;
-  --accent-glow: rgba(108,143,255,0.18);
-  --today-bg:  #6c8fff;
-  --radius:    14px;
-  --font:      'Sora', sans-serif;
-  --mono:      'JetBrains Mono', monospace;
+  --radius: 14px;
+  --font:   'Sora', sans-serif;
+  --mono:   'JetBrains Mono', monospace;
 }
 
 // ── Shell ──────────────────────────────────────────────────────────────────────
@@ -132,9 +123,9 @@
 .cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  padding: 8px 8px 4px;
-  gap: 3px;
-  flex: 1;
+//   padding: 8px 8px 4px;
+//   gap: 3px;
+//   flex: 1;
 }
 
 .cal-cell {

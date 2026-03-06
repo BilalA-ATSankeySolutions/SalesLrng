@@ -2,7 +2,7 @@
 
 .navbar {
   height: $navbar-height;
-  background: linear-gradient(90deg, $navbar-gradient-start, $navbar-gradient-end);
+  background: var(--nav-bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,12 +17,17 @@
 
     button {
       border: none;
+      background: transparent;
       color: $text-light;
       font-size: $font-size-md;
       cursor: pointer;
       padding: $spacing-sm;
       border-radius: $border-radius-sm;
       transition: background 0.2s, color 0.2s;
+
+      &:hover {
+        background: var(--nav-btn-hover-bg);
+      }
     }
   }
 

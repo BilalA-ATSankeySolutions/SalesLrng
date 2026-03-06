@@ -1,6 +1,6 @@
 @use '../../../styles/constants' as *;
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
 
 :host {
   display: block;
@@ -8,9 +8,9 @@
 
   .overview-root {
     min-height: 100vh;
-    background: $bg-dark-page;
+    background: var(--ov-bg);
     padding: $spacing-40 $spacing-44;
-    color: $text-dark-primary;
+    color: var(--ov-text);
   }
 
   .overview-topbar {
@@ -19,7 +19,7 @@
     justify-content: space-between;
     margin-bottom: $spacing-48;
     padding-bottom: $spacing-28;
-    border-bottom: 1px solid $border-dark-default;
+    border-bottom: 1px solid var(--ov-border);
 
     .topbar-left {
       display: flex;
@@ -41,7 +41,7 @@
       font-size: $font-size-28;
       font-weight: 800;
       letter-spacing: -0.5px;
-      color: $text-light;
+      color: var(--ov-title-color);
       line-height: 1;
     }
 
@@ -57,9 +57,9 @@
     gap: $spacing-10;
     padding: $spacing-10 $spacing-20;
     border-radius: $border-radius-8;
-    border: 1px solid $border-dark-hover;
-    background: $state-icon-bg;
-    color: $text-dark-primary;
+    border: 1px solid var(--ov-btn-border);
+    background: var(--ov-btn-bg);
+    color: var(--ov-btn-color);
     font-family: $font-display;
     font-size: $font-size-13;
     font-weight: 600;
@@ -79,11 +79,9 @@
 
     &:hover:not(:disabled) {
       transform: translateY(-1px);
-      border-color: $border-dark-strong;
+      border-color: var(--ov-btn-border-hover);
 
-      &::before {
-        opacity: 1;
-      }
+      &::before { opacity: 1; }
     }
 
     &:disabled {
@@ -112,7 +110,6 @@
         background: $green-export-bg;
         color: $green-export;
       }
-
       &:hover:not(:disabled) {
         background: $green-export-hover-bg;
         border-color: $green-export-border;
@@ -125,7 +122,6 @@
         background: $red-export-bg;
         color: $red-export;
       }
-
       &:hover:not(:disabled) {
         background: $red-export-hover-bg;
         border-color: $red-export-border;
@@ -146,8 +142,8 @@
       width: $size-52;
       height: $size-52;
       border-radius: $border-radius-14;
-      background: $state-icon-bg;
-      border: 1px solid $border-dark-state;
+      background: var(--ov-state-icon-bg);
+      border: 1px solid var(--ov-state-icon-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -162,15 +158,11 @@
       margin: 0;
       font-family: $font-mono;
       font-size: $font-size-13;
-      color: $text-dark-muted;
+      color: var(--ov-state-label);
       letter-spacing: $letter-spacing-normal;
     }
 
-    &.error {
-      .state-icon .pi {
-        color: $red-export;
-      }
-    }
+    &.error .state-icon .pi { color: $red-export; }
 
     .pulse-ring {
       width: $size-44;
@@ -182,9 +174,7 @@
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      to { transform: rotate(360deg); }
     }
   }
 
@@ -196,8 +186,8 @@
 
   .user-card {
     position: relative;
-    background: $bg-dark-card;
-    border: 1px solid $border-dark-default;
+    background: var(--ov-card-bg);
+    border: 1px solid var(--ov-card-border);
     border-radius: $border-radius-14;
     overflow: hidden;
     transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
@@ -205,17 +195,11 @@
 
     &:hover {
       transform: translateY(-3px);
-      border-color: $blue-hover-border;
-      box-shadow: $shadow-dark-card-hover;
+      border-color: var(--ov-card-border-hover);
+      box-shadow: var(--ov-card-shadow-hover);
 
-      .card-accent {
-        opacity: 1;
-        transform: scaleX(1);
-      }
-
-      .card-index {
-        color: $blue-gradient-start;
-      }
+      .card-accent { opacity: 1; transform: scaleX(1); }
+      .card-index { color: $blue-gradient-start; }
     }
 
     .card-index {
@@ -224,14 +208,12 @@
       right: $spacing-16;
       font-family: $font-mono;
       font-size: $font-size-11;
-      color: $text-dark-subtle;
+      color: var(--ov-index-color);
       letter-spacing: $letter-spacing-normal;
       transition: color 0.25s;
     }
 
-    .card-inner {
-      padding: $spacing-20;
-    }
+    .card-inner { padding: $spacing-20; }
 
     .card-top {
       display: flex;
@@ -266,7 +248,7 @@
     .user-name {
       font-size: $font-size-15;
       font-weight: 700;
-      color: $text-dark-primary;
+      color: var(--ov-name-color);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -276,13 +258,13 @@
     .user-handle {
       font-family: $font-mono;
       font-size: $font-size-11;
-      color: $text-dark-muted;
+      color: var(--ov-handle-color);
       letter-spacing: $letter-spacing-tight;
     }
 
     .card-divider {
       height: 1px;
-      background: $border-dark-default;
+      background: var(--ov-divider);
       margin-bottom: $spacing-16;
     }
 
@@ -297,7 +279,7 @@
       align-items: center;
       gap: $spacing-10;
       font-size: $font-size-12-5;
-      color: $text-dark-faint;
+      color: var(--ov-detail-color);
       font-family: $font-mono;
 
       span {
@@ -337,45 +319,32 @@
     height: $size-40;
     padding: $spacing-9;
     border-radius: $border-radius-8;
-    border: 1px solid $border-dark-hover;
-    background: $state-icon-bg;
+    border: 1px solid var(--ov-btn-border);
+    background: var(--ov-btn-bg);
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease;
 
     span {
       display: block;
       height: 2px;
-      background: $text-dark-primary;
+      background: var(--ov-hamburger-bar);
       border-radius: $border-radius-99;
       transition: transform 0.25s ease, opacity 0.25s ease, width 0.25s ease;
       width: 100%;
 
-      &:nth-child(2) {
-        width: 70%;
-      }
+      &:nth-child(2) { width: 70%; }
     }
 
     &.open {
       background: $blue-glow;
       border-color: $blue-hover-border;
 
-      span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-      }
-
-      span:nth-child(2) {
-        opacity: 0;
-        transform: scaleX(0);
-      }
-
-      span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-      }
+      span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     }
 
-    &:hover {
-      background: $border-dark-hover;
-    }
+    &:hover { background: var(--ov-btn-border); }
   }
 
   .mobile-menu {
@@ -401,20 +370,9 @@
   }
 
   @media (max-width: 600px) {
-    .overview-root {
-      padding: $spacing-20 $spacing-16;
-    }
-
-    .desktop-actions {
-      display: none !important;
-    }
-
-    .hamburger-btn {
-      display: flex;
-    }
-
-    .mobile-menu {
-      display: flex;
-    }
+    .overview-root { padding: $spacing-20 $spacing-16; }
+    .desktop-actions { display: none !important; }
+    .hamburger-btn { display: flex; }
+    .mobile-menu { display: flex; }
   }
 }

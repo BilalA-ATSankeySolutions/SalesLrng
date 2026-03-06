@@ -1,3 +1,45 @@
+@use '../../styles/constants' as *;
+
+:host {
+  display: block;
+  background: var(--dash-bg);
+  min-height: 100vh;
+}
+
 .dashboard-container {
-  padding: 2rem;
+  padding: $spacing-xl;
+  background: var(--dash-bg);
+
+  ::ng-deep {
+    .mat-mdc-tab-header {
+      background: var(--dash-tab-bg);
+      border-radius: $border-radius-lg;
+      border: 1px solid var(--dash-tab-border);
+      padding: 0 $spacing-sm;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .mat-mdc-tab-label-container {
+      border-bottom: none !important;
+    }
+
+    .mat-mdc-tab .mdc-tab__text-label {
+      color: var(--up-text-secondary);
+      letter-spacing: 0.01em;
+    }
+
+    .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+      color: var(--up-text-primary);
+      font-weight: 600;
+    }
+
+    .mdc-tab-indicator__content--underline {
+      border-color: #{$blue-gradient-start};
+      border-radius: $border-radius-99;
+    }
+
+    .mat-mdc-tab:not(.mdc-tab--active):hover .mdc-tab__text-label {
+      color: var(--up-text-primary);
+    }
+  }
 }
