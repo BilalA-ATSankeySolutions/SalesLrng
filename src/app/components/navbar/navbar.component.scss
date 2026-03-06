@@ -9,10 +9,26 @@
   padding: 0 $spacing-xl;
   color: $text-light;
   box-shadow: $shadow-navbar;
-}
 
-.logo {
-  font-size: $font-size-xl;
-  font-weight: 600;
-  letter-spacing: 1px;
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+
+    button {
+      border: none;
+      color: $text-light;
+      font-size: $font-size-md;
+      cursor: pointer;
+      padding: $spacing-sm;
+      border-radius: $border-radius-sm;
+      transition: background 0.2s, color 0.2s;
+    }
+  }
+
+  .logo {
+    font-size: $font-size-xl;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
 }

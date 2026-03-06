@@ -1,10 +1,15 @@
 import {
     Component,
     OnInit,
+    signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import type { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexFill, ApexStroke, ApexGrid, ApexTooltip, ApexDataLabels, ApexYAxis, ApexLegend } from 'ng-apexcharts';
+import { labels } from '../../../utils/json-data';
+import { CommonService } from '../../../services/common.service';
+import { CalendarComponent } from '../../commonComponents/calender/calender.component';
+import { DialogService } from '../../../services/dialog.service';
 
 export type ChartOptions = {
     series: ApexAxisChartSeries;
@@ -27,7 +32,10 @@ export type ChartOptions = {
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.scss'],
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
+
+    constructor(private common: CommonService, private dialogService: DialogService) { }
+
     chartOptions: ChartOptions = {
         series: [
             { name: 'Maximum of focus', data: [38, 55, 42, 60, 35, 65, 48, 72, 50, 58, 44, 68, 52, 42, 60, 75, 55, 80, 62, 50, 66, 54, 45, 70] },
@@ -95,6 +103,7 @@ export class UserProfileComponent {
             time: '08:15 am',
             name: 'Quick Daily Meeting',
             app: 'Zoom',
+            link: 'https://zoom.us/j/123456789',
             icon: 'https://img.icons8.com/?size=100&id=7csVZvHoQrLW&format=png&color=000000',
         },
         {
@@ -102,6 +111,7 @@ export class UserProfileComponent {
             time: '09:30 pm',
             name: 'John Onboarding',
             app: 'Google Meet',
+            link: 'https://meet.google.com/abc-defg-hij',
             icon: 'https://img.icons8.com/?size=100&id=pE97I4t7Il9M&format=png&color=000000',
         },
         {
@@ -109,13 +119,31 @@ export class UserProfileComponent {
             time: '02:30 pm',
             name: 'Call With a New Team',
             app: 'Google Meet',
+            link: 'https://meet.google.com/abc-defg-hij',
             icon: 'https://img.icons8.com/?size=100&id=pE97I4t7Il9M&format=png&color=000000',
         },
         {
             day: 'Tue, 15 Jul',
             time: '04:00 pm',
+            name: 'Support Event',
+            app: 'Zoom',
+            link: 'https://zoom.us/j/123456789',
+            icon: 'https://img.icons8.com/?size=100&id=7csVZvHoQrLW&format=png&color=000000',
+        },
+        {
+            day: 'Tue, 17 Jul',
+            time: '04:00 pm',
             name: 'Lead Designers Event',
             app: 'Zoom',
+            link: 'https://zoom.us/j/123456789',
+            icon: 'https://img.icons8.com/?size=100&id=7csVZvHoQrLW&format=png&color=000000',
+        },
+        {
+            day: 'Tue, 19 Jul',
+            time: '04:00 pm',
+            name: 'Designers Event',
+            app: 'Zoom',
+            link: 'https://zoom.us/j/123456789',
             icon: 'https://img.icons8.com/?size=100&id=7csVZvHoQrLW&format=png&color=000000',
         },
     ];
@@ -128,11 +156,10 @@ export class UserProfileComponent {
         { name: 'Philosophy', percent: 79, trend: 'up' },
     ];
 
-    tasks = {
-        prioritized: 83,
-        additional: 56,
-    };
-
+    tasks = [
+        { key: 'prioritized', label: 'Prioritized tasks', percent: 83 },
+        { key: 'additional', label: 'Additional tasks', percent: 56 },
+    ];
     trackersConnected = [
         {
             name: 'Figma',
@@ -150,6 +177,44 @@ export class UserProfileComponent {
 
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     activeMonthIndex = 8;
+
+    meetingsToShow: any[] = [];
+    meetingsOpen = signal<boolean>(false);
+
+    label = labels;
+
+    ngOnInit(): void {
+        this.meetingsToShow = this.meetings.slice(0, 4);
+    }
+
+    changeMeetingsView(): void {
+        if (this.meetingsOpen()) {
+            this.meetingsToShow = this.meetings.slice(0, 4);
+        } else {
+            this.meetingsToShow = this.meetings;
+        }
+        this.meetingsOpen.set(!this.meetingsOpen());
+    }
+
+    openMeeting(meeting: any): void {
+        if (!meeting.link) {
+            this.common.error('No meeting link', 'This meeting does not have a link to join.');
+            return;
+        };
+
+        window.open(meeting.link, '_blank');
+    }
+
+    openCalendarDialog() {
+        this.dialogService.open({
+            title: 'Meetings Calendar',
+            component: CalendarComponent,
+            componentData: {
+                meetings: this.meetings
+            },
+            width: '900px'
+        });
+    }
 
     private get rangeWindow(): { above: number; below: number } {
         switch (this.selectedRange) {

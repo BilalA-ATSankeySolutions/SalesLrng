@@ -25,7 +25,7 @@
 
     .left-col {
         flex: 1;
-        background: $bg-col;
+        background: $text-light;
         min-width: 0;
         display: flex;
         flex-direction: column;
@@ -141,6 +141,7 @@
                 flex-direction: column;
                 gap: $spacing-14;
                 min-height: 360px;
+                box-shadow: $shadow-card-white;
 
                 &__header {
                     display: flex;
@@ -391,6 +392,8 @@
             flex-direction: column;
             gap: $spacing-xs;
             flex: 1;
+            box-shadow: $shadow-card-white;
+
 
             &__header {
                 display: flex;
@@ -577,7 +580,7 @@
     .right-col {
         width: $size-400;
         flex-shrink: 0;
-        background: $bg-col;
+        background: $text-light;
         border-left: 1px solid $border-right-col;
         padding: $spacing-22 $spacing-20;
         overflow-y: auto;
@@ -604,86 +607,112 @@
             margin-top: -$spacing-10;
         }
 
-        .meeting-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
+        .meeting-scroll-wrap {
+            overflow: hidden;
+            max-height: none;
 
-            .meeting-item {
+            &.expanded {
+                overflow-y: auto;
+                max-height: 280px; // roughly 4 items
+                padding-right: 20px;
+
+                &::-webkit-scrollbar {
+                    width: 4px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: $border-divider;
+                    border-radius: $border-radius-99;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: $blue-primary;
+                    border-radius: $border-radius-99;
+                }
+            }
+
+            .meeting-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
                 display: flex;
-                align-items: center;
-                padding: $spacing-15 0;
-                border-bottom: 1px solid $border-right-col;
-                gap: $spacing-10;
+                flex-direction: column;
 
-                &:first-child {
-                    margin-top: 0px;
-                }
-
-                &:last-child {
-                    border-bottom: none;
-                }
-
-                &__time {
-                    min-width: 72px;
-                    display: flex;
-                    flex-direction: column;
-
-                    .day {
-                        font-size: $font-size-14;
-                        color: var(--text-secondary);
-                    }
-
-                    .time {
-                        font-size: $font-size-13;
-                        padding-top: $spacing-3;
-                        font-weight: 600;
-                        color: var(--text-primary);
-                        margin-top: $spacing-2;
-                    }
-                }
-
-                &__detail {
-                    flex: 1;
-                    min-width: 0;
-                    margin-bottom: $spacing-5;
-
-                    .name {
-                        display: block;
-                        font-size: $font-size-16;
-                        font-weight: 600;
-                        color: var(--text-primary);
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-                }
-
-                &__app {
+                .meeting-item {
                     display: flex;
                     align-items: center;
-                    gap: $spacing-xs;
-                    margin-top: $spacing-3;
-                    padding-top: $spacing-3;
+                    padding: $spacing-15 0;
+                    border-bottom: 1px solid $border-right-col;
+                    gap: $spacing-10;
 
-                    img {
-                        width: $size-13;
-                        height: $size-13;
+                    &:first-child {
+                        margin-top: 0px;
                     }
 
-                    span {
-                        font-size: $font-size-13;
-                        color: var(--text-secondary);
+                    &:last-child {
+                        border-bottom: none;
                     }
-                }
 
-                &__arrow {
-                    color: var(--text-light);
+                    &__time {
+                        min-width: 72px;
+                        display: flex;
+                        flex-direction: column;
+
+                        .day {
+                            font-size: $font-size-14;
+                            color: var(--text-secondary);
+                        }
+
+                        .time {
+                            font-size: $font-size-13;
+                            padding-top: $spacing-3;
+                            font-weight: 600;
+                            color: var(--text-primary);
+                            margin-top: $spacing-2;
+                        }
+                    }
+
+                    &__detail {
+                        flex: 1;
+                        min-width: 0;
+                        margin-bottom: $spacing-5;
+
+                        .name {
+                            display: block;
+                            font-size: $font-size-16;
+                            font-weight: 600;
+                            color: var(--text-primary);
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+
+                    &__app {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-xs;
+                        margin-top: $spacing-3;
+                        padding-top: $spacing-3;
+
+                        img {
+                            width: $size-13;
+                            height: $size-13;
+                        }
+
+                        span {
+                            font-size: $font-size-13;
+                            color: var(--text-secondary);
+                        }
+                    }
+
+                    &__arrow {
+                        color: var(--text-light);
+                    }
                 }
             }
         }
+
 
         .see-all-btn {
             display: flex;
@@ -804,5 +833,86 @@
 
     &:hover {
         color: var(--text-secondary);
+    }
+}
+
+@media (max-width: 1180px) {
+    .shell {
+        .left-col {
+            .cards-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}
+
+@media (max-width: 920px) {
+    .shell {
+        flex-direction: column;
+
+        .right-col {
+            width: 100%;
+            border-left: none;
+            border-top: 1px solid $border-right-col;
+        }
+
+        .left-col {
+            padding: $spacing-16;
+            gap: $spacing-12;
+
+            .topbar {
+                &-right {
+                    .search-bar {
+                        width: 140px;
+                    }
+                }
+            }
+
+            .cards-row {
+                grid-template-columns: 1fr;
+
+                .tasks-col {
+                    .task-cards-row {
+                        grid-template-columns: 1fr 1fr;
+
+                        .task-card {
+                            min-height: 180px;
+
+                            &__percent {
+                                font-size: $font-size-28;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .shell {
+        .left-col {
+            padding: $spacing-12;
+
+            .topbar {
+                &-right {
+                    .search-bar {
+                        display: none;
+                    }
+                }
+            }
+
+            .cards-row {
+                .tasks-col {
+                    .task-cards-row {
+                        grid-template-columns: 1fr;
+
+                        .task-card {
+                            min-height: 140px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

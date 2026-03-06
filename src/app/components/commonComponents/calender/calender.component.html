@@ -1,0 +1,152 @@
+<div class="cal-shell">
+
+  <!-- Left: Calendar -->
+  <div class="cal-panel">
+
+    <!-- Header -->
+    <div class="cal-header">
+      <div class="cal-nav">
+        <button class="nav-btn" (click)="prevMonth()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="nav-btn" (click)="nextMonth()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <h2 class="month-title">{{ monthLabel }}</h2>
+      <button class="today-btn" (click)="goToToday()" [class.active]="isCurrentMonth()">Today</button>
+    </div>
+
+    <!-- Day Labels -->
+    <div class="day-labels">
+      <span *ngFor="let d of dayNames">{{ d }}</span>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="cal-grid">
+      <ng-container *ngFor="let week of weeks">
+        <div
+          *ngFor="let day of week"
+          class="cal-cell"
+          [class.other-month]="!day.isCurrentMonth"
+          [class.today]="day.isToday"
+          [class.selected]="isSelected(day)"
+          [class.has-meetings]="day.meetings.length > 0"
+          (click)="selectDate(day)"
+        >
+          <span class="day-num">{{ day.date.getDate() }}</span>
+
+          <!-- Meeting dots -->
+          <div class="dot-row" *ngIf="day.meetings.length > 0">
+            <span
+              *ngFor="let m of day.meetings.slice(0, 3)"
+              class="dot"
+              [style.background]="getPlatformColor(m.app)"
+            ></span>
+            <span class="overflow-dot" *ngIf="day.meetings.length > 3">+{{ day.meetings.length - 3 }}</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Selected Day Detail -->
+    <div class="day-detail" *ngIf="selectedDate && selectedMeetings.length > 0">
+      <div class="day-detail-header">
+        <span class="detail-date">{{ selectedDate | date:'EEEE, MMMM d' }}</span>
+        <span class="detail-count">{{ selectedMeetings.length }} meeting{{ selectedMeetings.length > 1 ? 's' : '' }}</span>
+      </div>
+      <div class="detail-meetings">
+        <div class="detail-card" *ngFor="let m of selectedMeetings" (click)="openMeeting(m)">
+          <div class="platform-badge" [style.background]="getPlatformColor(m.app)">
+            <img *ngIf="m.icon" [src]="m.icon" [alt]="m.app" style="width:16px;height:16px;object-fit:contain;filter:brightness(10)">
+            <span *ngIf="!m.icon">{{ getPlatformIcon(m.app) }}</span>
+          </div>
+          <div class="detail-info">
+            <div class="detail-name">{{ m.name }}</div>
+            <div class="detail-meta">{{ m.time }} · {{ m.app }}</div>
+          </div>
+          <button class="join-chip" (click)="openMeeting(m, $event)" [style.border-color]="getPlatformColor(m.app)" [style.color]="getPlatformColor(m.app)">
+            Join →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-day" *ngIf="selectedDate && selectedMeetings.length === 0">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>No meetings on {{ selectedDate | date:'MMM d' }}</span>
+    </div>
+  </div>
+
+  <!-- Right: Upcoming Meetings -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>Upcoming</h3>
+      <span class="badge">{{ getUpcomingMeetings().length }}</span>
+    </div>
+
+    <div class="sidebar-empty" *ngIf="getUpcomingMeetings().length === 0">
+      <p>No upcoming meetings</p>
+    </div>
+
+    <div class="meeting-feed">
+      <div
+        class="meeting-row"
+        *ngFor="let m of getUpcomingMeetings()"
+        (click)="openMeeting(m)"
+      >
+        <div class="row-accent" [style.background]="getPlatformColor(m.app)"></div>
+
+        <div class="row-left">
+        <div class="platform-icon" [style.background]="getPlatformColor(m.app) + '22'" [style.color]="getPlatformColor(m.app)">
+            <img *ngIf="m.icon" [src]="m.icon" [alt]="m.app" style="width:18px;height:18px;object-fit:contain;">
+            <span *ngIf="!m.icon">{{ getPlatformIcon(m.app) }}</span>
+          </div>
+        </div>
+
+        <div class="row-body">
+          <div class="row-title">{{ m.name }}</div>
+          <div class="row-sub">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            {{ formatDate(m.day) }}
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:6px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            {{ m.time }}
+          </div>
+          <div class="platform-tag" [style.color]="getPlatformColor(m.app)">{{ m.app }}</div>
+        </div>
+
+        <button class="join-btn" (click)="openMeeting(m, $event)" [style.background]="getPlatformColor(m.app)">
+          Join
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+      <div class="stat">
+        <span class="stat-num">{{ meetings.length }}</span>
+        <span class="stat-lbl">Total</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-num">{{ getUpcomingMeetings().length }}</span>
+        <span class="stat-lbl">Upcoming</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-num" style="color:#34A853">
+          {{ meetings.filter(m => m.app === 'Google Meet').length }}
+        </span>
+        <span class="stat-lbl">Meet</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-num" style="color:#2D8CFF">
+          {{ meetings.filter(m => m.app === 'Zoom').length }}
+        </span>
+        <span class="stat-lbl">Zoom</span>
+      </div>
+    </div>
+  </div>
+
+</div>

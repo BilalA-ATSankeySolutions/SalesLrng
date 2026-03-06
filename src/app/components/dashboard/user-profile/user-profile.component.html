@@ -14,8 +14,8 @@
                     </svg>
                 </div>
                 <div class="welcome-text">
-                    <h1>Welcome, {{ profile.name.split(' ')[0] }}</h1>
-                    <p>Your personal dashboard overview</p>
+                    <h1>{{ label.Profile.welcome }} {{ profile.name.split(' ')[0] }}</h1>
+                    <p>{{ label.Profile.welcomeDesc }}</p>
                 </div>
             </div>
 
@@ -28,7 +28,7 @@
                     </svg>
                     <input type="text" placeholder="Search" />
                 </div>
-                <button class="avatar-btn" aria-label="Profile">
+                <button class="avatar-btn" aria-label={{label.Profile.profile}}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -121,8 +121,8 @@
 
                 <!-- Task Cards -->
                 <div class="task-cards-row">
-                    <div class="task-card task-card--prioritized">
-                        <div class="task-card__title">Prioritized tasks</div>
+                    <div class="task-card task-card--{{ task.key }}" *ngFor="let task of tasks">
+                        <div class="task-card__title">{{ task.label }}</div>
                         <div class="task-card__icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round">
@@ -131,22 +131,7 @@
                             </svg>
                         </div>
                         <div class="task-card__body">
-                            <span class="task-card__percent">{{ tasks.prioritized }}%</span>
-                            <span class="task-card__label">Avg. Completed</span>
-                        </div>
-                    </div>
-
-                    <div class="task-card task-card--additional">
-                        <div class="task-card__title">Additional tasks</div>
-                        <div class="task-card__icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round">
-                                <circle cx="12" cy="12" r="10" />
-                                <polyline points="12 6 12 12 16 14" />
-                            </svg>
-                        </div>
-                        <div class="task-card__body">
-                            <span class="task-card__percent">{{ tasks.additional }}%</span>
+                            <span class="task-card__percent">{{ task.percent }}%</span>
                             <span class="task-card__label">Avg. Completed</span>
                         </div>
                     </div>
@@ -176,8 +161,8 @@
         <div class="focus-card card">
             <div class="focus-card__header">
                 <div class="focus-card__title">
-                    <h2>Focusing</h2>
-                    <p>Productivity analytics</p>
+                    <h2>{{label.Profile.focusing}}</h2>
+                    <p>{{label.Profile.productivity}}</p>
                 </div>
                 <div class="range-wrapper">
                     <select [value]="selectedRange" (change)="selectedRange = $any($event.target).value"
@@ -249,8 +234,8 @@
 
         <!-- My Meetings -->
         <div class="section-header">
-            <h2>My meetings</h2>
-            <button class="icon-btn" aria-label="Calendar">
+            <h2>{{label.Profile.meetings}}</h2>
+            <button class="icon-btn" aria-label="Calendar" (click)="openCalendarDialog()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -261,31 +246,33 @@
             </button>
         </div>
 
-        <ul class="meeting-list">
-            <li class="meeting-item" *ngFor="let m of meetings">
-                <div class="meeting-item__time">
-                    <span class="day">{{ m.day }}</span>
-                    <span class="time">{{ m.time }}</span>
-                </div>
-                <div class="meeting-item__detail">
-                    <span class="name">{{ m.name }}</span>
-                    <div class="meeting-item__app">
-                        <img [src]="m.icon" [alt]="m.app" />
-                        <span>{{ m.app }}</span>
+        <div class="meeting-scroll-wrap" [class.expanded]="meetingsOpen()">
+            <ul class="meeting-list">
+                <li class="meeting-item" *ngFor="let m of meetingsToShow">
+                    <div class="meeting-item__time">
+                        <span class="day">{{ m.day }}</span>
+                        <span class="time">{{ m.time }}</span>
                     </div>
-                </div>
-                <button class="meeting-item__arrow icon-btn" aria-label="Open">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round">
-                        <line x1="7" y1="17" x2="17" y2="7" />
-                        <polyline points="7 7 17 7 17 17" />
-                    </svg>
-                </button>
-            </li>
-        </ul>
+                    <div class="meeting-item__detail">
+                        <span class="name">{{ m.name }}</span>
+                        <div class="meeting-item__app">
+                            <img [src]="m.icon" [alt]="m.app" />
+                            <span>{{ m.app }}</span>
+                        </div>
+                    </div>
+                    <button class="meeting-item__arrow icon-btn" aria-label="Open" (click)="openMeeting(m)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round">
+                            <line x1="7" y1="17" x2="17" y2="7" />
+                            <polyline points="7 7 17 7 17 17" />
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
 
-        <button class="see-all-btn">
-            See all meetings
+        <button class="see-all-btn" (click)="changeMeetingsView()">
+            {{meetingsOpen() ? 'See less meetings' : 'See all meetings'}}
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round">
                 <polyline points="9 18 15 12 9 6" />
@@ -296,9 +283,9 @@
 
         <!-- Developed Areas -->
         <div class="section-header" style="margin-bottom: 4px;">
-            <h2>Developed areas</h2>
+            <h2>{{label.Profile.developed}}</h2>
         </div>
-        <p class="section-subtitle">Most common areas of interests</p>
+        <p class="section-subtitle">{{label.Profile.developedDesc}}</p>
 
         <ul class="area-list">
             <li class="area-item" *ngFor="let area of developedAreas">

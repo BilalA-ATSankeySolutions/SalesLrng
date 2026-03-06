@@ -12,5 +12,17 @@ export const labels = {
     },
     Insight: {
         header: 'Insights'
+    },
+    Profile: {
+        welcome: 'Welcome back,',
+        welcomeDesc: 'Your personal dashboard overview',
+        profile: 'Profile',
+        meetings: 'Meetings',
+        tasks: 'Tasks',
+        trackers: 'Trackers',
+        developed: 'Developed areas',
+        developedDesc: 'Most common areas of interests',
+        focusing: 'Focusing',
+        productivity: 'Productivity analytics',
     }
 }
