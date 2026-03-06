@@ -235,15 +235,55 @@
         <!-- My Meetings -->
         <div class="section-header">
             <h2>{{label.Profile.meetings}}</h2>
-            <button class="icon-btn" aria-label="Calendar" (click)="openCalendarDialog()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
-            </button>
+            <div class="cal-wrap">
+                <button class="icon-btn" aria-label="Calendar" (click)="calendarOpen.set(!calendarOpen())">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                </button>
+                <!-- <div class="mini-cal" *ngIf="calendarOpen()"></div> -->
+
+                <div class="mini-cal" *ngIf="calendarOpen()">
+                    <!-- Header -->
+                    <div class="mini-cal__header">
+                        <button (click)="calPrevMonth()">‹</button>
+                        <span>{{ calMonthLabel }}</span>
+                        <button (click)="calNextMonth()">›</button>
+                    </div>
+                    <!-- Day names -->
+                    <div class="mini-cal__days">
+                        <span *ngFor="let d of ['S','M','T','W','T','F','S']">{{ d }}</span>
+                    </div>
+                    <!-- Dates grid -->
+                    <div class="mini-cal__grid">
+                        <div *ngFor="let cell of calCells" class="mini-cal__cell" [class.other]="!cell.cur"
+                            [class.today]="cell.today" [class.has]="cell.meetings.length"
+                            [class.selected]="calSelected === cell.label" (click)="cell.cur && calSelect(cell)">
+                            {{ cell.day }}
+                            <span class="dot" *ngIf="cell.meetings.length"></span>
+                        </div>
+                    </div>
+                    <!-- Meeting list for selected date -->
+                    <div class="mini-cal__meetings" *ngIf="calSelectedMeetings.length">
+                        <div class="mini-cal__meeting" *ngFor="let m of calSelectedMeetings" (click)="openMeeting(m)">
+                            <img [src]="m.icon" [alt]="m.app" />
+                            <div>
+                                <span class="name">{{ m.name }}</span>
+                                <span class="time">{{ m.time }}</span>
+                            </div>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round">
+                                <line x1="7" y1="17" x2="17" y2="7" />
+                                <polyline points="7 7 17 7 17 17" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="meeting-scroll-wrap" [class.expanded]="meetingsOpen()">

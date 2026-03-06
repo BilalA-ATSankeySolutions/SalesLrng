@@ -180,6 +180,7 @@ export class UserProfileComponent implements OnInit {
 
     meetingsToShow: any[] = [];
     meetingsOpen = signal<boolean>(false);
+    calendarOpen = signal<boolean>(false);
 
     label = labels;
 
@@ -205,17 +206,67 @@ export class UserProfileComponent implements OnInit {
         window.open(meeting.link, '_blank');
     }
 
-    openCalendarDialog() {
-        this.dialogService.open({
-            title: 'Meetings Calendar',
-            component: CalendarComponent,
-            componentData: {
-                meetings: this.meetings
-            },
-            width: '900px'
-        });
+    calDate = new Date();
+    calSelected = '';
+    calSelectedMeetings: any[] = [];
+
+    get calMonthLabel(): string {
+        return this.calDate.toLocaleString('default', { month: 'long', year: 'numeric' });
     }
 
+    get calCells(): { day: number; label: string; cur: boolean; today: boolean; meetings: any[] }[] {
+        const year = this.calDate.getFullYear();
+        const month = this.calDate.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const prevDays = new Date(year, month, 0).getDate();
+        const today = new Date().toDateString();
+        const cells = [];
+
+        for (let i = 0; i < firstDay; i++) {
+            const d = prevDays - firstDay + i + 1;
+            cells.push({ day: d, label: '', cur: false, today: false, meetings: [] });
+        }
+        for (let d = 1; d <= daysInMonth; d++) {
+            const date = new Date(year, month, d);
+            const label = date.toDateString();
+            cells.push({
+                day: d, label,
+                cur: true,
+                today: label === today,
+                meetings: this.meetings.filter(m => this.parseMeetingDate(m.day).toDateString() === label)
+            });
+        }
+        const remaining = 42 - cells.length;
+        for (let d = 1; d <= remaining; d++) {
+            cells.push({ day: d, label: '', cur: false, today: false, meetings: [] });
+        }
+        return cells;
+    }
+
+    calPrevMonth(): void {
+        this.calDate = new Date(this.calDate.getFullYear(), this.calDate.getMonth() - 1, 1);
+    }
+
+    calNextMonth(): void {
+        this.calDate = new Date(this.calDate.getFullYear(), this.calDate.getMonth() + 1, 1);
+    }
+
+    calSelect(cell: any): void {
+        this.calSelected = cell.label;
+        this.calSelectedMeetings = cell.meetings;
+    }
+
+    parseMeetingDate(dayStr: string): Date {
+        const cleaned = dayStr.replace(/^[A-Za-z]+,\s*/, '').trim(); // "11 Jul"
+        const now = new Date();
+        for (let offset = 0; offset <= 2; offset++) {
+            const d = new Date(`${cleaned} ${now.getFullYear() + offset}`);
+            if (!isNaN(d.getTime())) return d;
+        }
+        return new Date();
+    }
+    
     private get rangeWindow(): { above: number; below: number } {
         switch (this.selectedRange) {
             case 'Last 3 months': return { above: 1, below: 1 };
